@@ -15,6 +15,12 @@ countriesInput.addEventListener('input', debounce(getContries, DEBOUNCE_DELAY))
 function getContries(evt) {
     const cntryName = evt.target.value;
     
+    if (cntryName.trim() === '') {
+            countriesList.innerHTML = '';
+            countryInfo.innerHTML = '';
+            return;
+    }
+
     fetchCountries(cntryName).then(countries => {
         console.log(countries)
         createMarkup(countries)
@@ -23,10 +29,6 @@ function getContries(evt) {
     {
         countriesList.innerHTML = '';
         countryInfo.innerHTML = '';
-
-        if (cntryName === '') {
-            return;
-        }
 
         console.log(err);
         Notify.failure("Oops, there is no country with that name");
